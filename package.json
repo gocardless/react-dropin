@@ -48,6 +48,8 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^4.10.1",
+    "prettier": "^2.3.2",
+    "react": "^17.0.2",
     "react-script-hook": "^1.4.1",
     "rollup": "^2.53.3",
     "rollup-plugin-peer-deps-external": "^2.2.4",
