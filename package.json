@@ -1,0 +1,28 @@
+{
+  "name": "react-gocardless-dropin",
+  "version": "1.0.0",
+  "description": "React bindings to the GoCardless Dropin checkout flow",
+  "main": "dist/index.js",
+  "types": "dist/index.s.ts",
+  "scripts": {
+    "test": "echo \"error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gocardless/react-gocardless-dropin.git"
+  },
+  "keywords": [
+    "checkout",
+    "payments"
+  ],
+  "author": "GoCardless",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gocardless/react-gocardless-dropin/issues"
+  },
+  "homepage": "https://github.com/gocardless/react-gocardless-dropin#readme",
+  "dependencies": {
+    "esbuild": "^0.12.15",
+    "gocardless-nodejs": "^2.1.0"
+  }
+}
