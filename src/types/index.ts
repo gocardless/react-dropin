@@ -1,7 +1,4 @@
-import {
-  BillingRequest,
-  BillingRequestFlow,
-} from "gocardless-nodejs";
+import { BillingRequest, BillingRequestFlow } from "gocardless-nodejs";
 
 // Re-export, for integrator convenience when loading these bindings.
 export type { BillingRequest, BillingRequestFlow };
@@ -31,7 +28,9 @@ export type GoCardlessDropinOnSuccess = (
 ) => void;
 
 export type GoCardlessDropinOnExit = (
+  // eslint-disable-next-line @typescript-eslint/ban-types
   error: object | null,
+  // eslint-disable-next-line @typescript-eslint/ban-types
   metadata: object
 ) => void;
 
