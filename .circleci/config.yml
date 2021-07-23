@@ -31,17 +31,71 @@ references:
         - node_modules
 
 jobs:
-  lint:
+  deps:
     <<: *job_defaults
     steps:
       - checkout
       - *restore_node_modules
       - *install_deps
       - *cache_node_modules
+
+  lint:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - *restore_node_modules
       - run: npm run lint
+
+  build:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - *restore_node_modules
+      - run: npm run build
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+
+  # NPM_TOKEN is a automatable publish token, assigned to the gocardless npm
+  # organisation. This step publishes the files that were build in build.
+  publish:
+    <<: *job_defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish --access=public
 
 workflows:
   version: 2
   build:
     jobs:
-      - lint
+      - deps:
+          filters:
+            tags:
+              only: /^v.*/
+      - lint:
+          requires:
+            - deps
+          filters:
+            tags:
+              only: /^v.*/
+      - build:
+          requires:
+            - deps
+          filters:
+            tags:
+              only: /^v.*/
+      - publish:
+          requires:
+            - lint
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
