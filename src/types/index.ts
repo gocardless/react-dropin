@@ -6,7 +6,18 @@ export type { BillingRequest, BillingRequestFlow };
 // GoCardlessDropin is the global interface around creating instances of the
 // Dropin.
 export interface GoCardlessDropin {
-  create: (options: GoCardlessDropinOptions) => void;
+  create: (options: GoCardlessDropinOptions) => GoCardlessDropinHandler;
+}
+
+// Returned by the create method, and represents an instance of a Dropin.
+export interface GoCardlessDropinHandler {
+  // open adds the iframe that has been created by create() into the DOM. Until
+  // this is called, the Dropin modal will not be visible.
+  open: () => void;
+
+  // exit requests that the Dropin exit. There is no confirmation step yet- this
+  // will immediately close the Dropin.
+  exit: () => void;
 }
 
 // Options for creating a Dropin instance. We may broaden this eventually, and
