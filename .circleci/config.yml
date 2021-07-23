@@ -1,0 +1,47 @@
+---
+version: 2.1
+
+references:
+  job_defaults: &job_defaults
+    docker:
+      - image: circleci/node:14-browsers
+    environment:
+      - TERM: xterm
+      - BUILD_TARGET: ./dist
+
+  restore_node_modules: &restore_node_modules
+    restore_cache:
+      name: Restoring node_modules and yarn cache
+      keys:
+        - yarn-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
+        - yarn-v1-{{ checksum ".nvmrc" }}
+
+  install_deps: &install_deps
+    run:
+      name: Install Dependencies
+      command: npm install
+      environment:
+        NODE_ENV: development
+
+  cache_node_modules: &cache_node_modules
+    save_cache:
+      name: Caching node_modules
+      key: yarn-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
+      paths:
+        - node_modules
+
+jobs:
+  lint:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - *restore_node_modules
+      - *install_deps
+      - *cache_node_modules
+      - run: npm run lint
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - lint
