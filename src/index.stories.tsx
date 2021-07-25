@@ -9,8 +9,13 @@ import { GoCardlessDropinButton } from ".";
 // In future, we may want to provide an additional button that can populate the
 // BRF ID on behalf of the user, using our demo link in sandbox.
 //
-// eslint-disable-next-line react/prop-types
-export const Base = ({ billingRequestFlowID, environment, ...args }) => {
+export const Base = ({
+  billingRequestFlowID,
+  environment,
+}: {
+  billingRequestFlowID: string;
+  environment: string;
+}) => {
   return (
     <GoCardlessDropinButton
       billingRequestFlowID={billingRequestFlowID}
