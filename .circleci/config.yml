@@ -87,13 +87,13 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      - run:
-          name: Remove all keys, allowing the deploy key to become default
-          command: ssh-add -D
       # This is the deploy key configured to permit write access to react-dropin
       - add_ssh_keys:
           fingerprints:
             - "d4:93:9f:d8:79:57:ab:2b:32:62:8d:2e:b9:4a:28:77"
+      - run:
+          name: Remove checkout key
+          command: ssh-add -d <(ssh-add -L | grep rsa)
       # Don't perform strict host checking on GitHub, as this causes the
       # interactive prompt to hang when we're publishing.
       - run:
