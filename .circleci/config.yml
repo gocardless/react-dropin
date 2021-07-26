@@ -87,6 +87,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
+      - run:
+          name: Remove all keys, allowing the deploy key to become default
+          command: ssh-add -D
       # This is the deploy key configured to permit write access to react-dropin
       - add_ssh_keys:
           fingerprints:
@@ -95,7 +98,12 @@ jobs:
       # interactive prompt to hang when we're publishing.
       - run:
           name: Avoid hosts unknown for github
-          command: mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          command: |
+            mkdir -p ~/.ssh/
+            echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run:
+          name: Install dependencies
+          command: sudo apt-get install -y rsync
       - run:
           name: Publish Storybook
           command: node ./publish-storybook.js
