@@ -1,6 +1,6 @@
 {
   "name": "@gocardless/react-dropin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React bindings to the GoCardless Dropin checkout flow",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
