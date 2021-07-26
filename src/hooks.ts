@@ -27,7 +27,7 @@ export const useGoCardlessDropin = (
   const initialiseURL =
     options.initialiseURL || GOCARDLESS_DROPIN_INITIALISE_URL;
   const [loading, scriptLoadError] = useScript({
-    src: initialiseURL,
+    src: window.GoCardlessDropin ? null : initialiseURL,
     checkForExisting: true,
   });
 
