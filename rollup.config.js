@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 // Use typescript2 as it performs proper syntax checking, and supports emitting type
 // declarations.
 import typescript from 'rollup-plugin-typescript2';
+import css from "rollup-plugin-import-css";
 
 const packageJson = require('./package.json');
 
@@ -26,5 +27,6 @@ export default {
     resolve(),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
+    css(),
   ],
 };
