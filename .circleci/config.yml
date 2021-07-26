@@ -91,6 +91,11 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "d4:93:9f:d8:79:57:ab:2b:32:62:8d:2e:b9:4a:28:77"
+      # Don't perform strict host checking on GitHub, as this causes the
+      # interactive prompt to hang when we're publishing.
+      - run:
+          name: Avoid hosts unknown for github
+          command: mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run:
           name: Publish Storybook
           command: node ./publish-storybook.js
