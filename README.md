@@ -27,10 +27,6 @@ which you can create your Dropin instance.
 Stories are deployed to the `gh-pages` branch of this repo, and hosted at
 [https://gocardless.github.io/react-dropin/](https://gocardless.github.io/react-dropin/).
 
-```console
-npm start storybook
-```
-
 ## Publishing
 
 CircleCI is configured to publish changes us, via a build pipeline.
@@ -50,6 +46,13 @@ npm shortly.
 
 This library exports React hook functions that you can use to trigger a
 GoCardless Dropin instance.
+
+Here is a simple example of an `App` that wants to create a Billing Request Flow
+ID via its backend API, then provide a `DropinButton` that the payer can click
+to trigger the Dropin.
+
+> See this in action at the [GoCardlessDropinButton
+> story](https://gocardless.github.io/react-dropin/?path=/story/dropin-gocardlessdropinbutton--base)
 
 ```typescript
 import React, { useCallback, useState } from "react";
