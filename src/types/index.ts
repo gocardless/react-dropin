@@ -43,6 +43,16 @@ export type GoCardlessDropinOptions = ClientCallbacks & {
   domain?: string;
 };
 
+export type useGoCardlessDropinOptions = GoCardlessDropinOptions & {
+  /**
+   * initialiseURL will allow to overwrite the url of the Dropin initialise script
+   * for eg. if you are interested in passing the url for sandbox or local
+   * environment. If not passed, it will pick the live-production one where
+   * GoCardless hosts the Dropin initialise script
+   */
+  initialiseURL?: string;
+};
+
 export type GoCardlessDropinOnSuccess = (
   billingRequest: BillingRequest,
   billingRequestFlow: BillingRequestFlow

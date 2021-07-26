@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useScript from "react-script-hook";
 
-import { GoCardlessDropinHandler, GoCardlessDropinOptions } from "./types";
+import { GoCardlessDropinHandler, useGoCardlessDropinOptions } from "./types";
 
 // This is where GoCardless hosts the Dropin initialise script. Compatibility is
 // guaranteed across the same major version- no one should be trying to use a different
@@ -20,7 +20,7 @@ type useGoCardlessDropinResult = {
 const noop = () => {};
 
 export const useGoCardlessDropin = (
-  options: GoCardlessDropinOptions & { initialiseURL?: string }
+  options: useGoCardlessDropinOptions
 ): useGoCardlessDropinResult => {
   // Asynchronously load the initialise script. This should make GoCardlessDropin
   // available on window.
