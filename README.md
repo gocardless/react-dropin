@@ -1,5 +1,7 @@
 # GoCardless React Dropin
 
+[![npm version](https://badge.fury.io/js/%40gocardless%2Freact-dropin.svg)](https://badge.fury.io/js/%40gocardless%2Freact-dropin)
+
 React bindings for the GoCardless Dropin checkout flow.
 
 ## Installation
