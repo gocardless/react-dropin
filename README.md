@@ -24,6 +24,9 @@ Checkout the Storybook flow to see the `<GoCardlessDropinButton />` in action.
 You can use the Storybook knobs to configure the Billing Request Flow ID, from
 which you can create your Dropin instance.
 
+Stories are deployed to the `gh-pages` branch of this repo, and hosted at
+[https://gocardless.github.io/react-dropin/](https://gocardless.github.io/react-dropin/).
+
 ```console
 npm start storybook
 ```
