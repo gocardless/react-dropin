@@ -23,16 +23,20 @@ export interface GoCardlessDropinHandler {
 }
 
 /**
- * Options for creating a Dropin instance. We may broaden this eventually, and
- * allow creating a Dropin from sources other than an existing BRF ID, such as
- * when we support Billing Request Templates.
+ * Options for creating a Dropin instance.
+ *
+ * Create the Dropin from either:
+ *
+ *  - Billing Request Flow ID, created in your backend for working in the Dropin
+ *  - Billing Request Template ID, which creates a fresh Billing Request
  */
-export type GoCardlessDropinOptions = ClientCallbacks & {
-  /**
-   * Billing Request Flow ID that has been created in the backend, intended to
-   * be worked by the Dropin.
-   */
-  billingRequestFlowID: string;
+export type GoCardlessDropinOptions = CommonOptions &
+  (
+    | { billingRequestFlowID: string; billingRequestTemplateID?: never }
+    | { billingRequestFlowID?: never; billingRequestTemplateID: string }
+  );
+
+type CommonOptions = ClientCallbacks & {
   /**
    * Environment name, one of live or sandbox.
    */
