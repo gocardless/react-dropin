@@ -3,6 +3,42 @@ import { action } from "@storybook/addon-actions";
 
 import { GoCardlessDropinButton } from ".";
 
+const Instructions = () => (
+  <>
+    <p>
+      If you do not yet have an integration with our{" "}
+      <a href="https://developer.gocardless.com/billing-requests/overview">
+        Billing Requests
+      </a>
+      , you can follow these steps to generate a BRF ID using our Sandbox demo
+      payment page:-
+    </p>
+    <ol>
+      <li>
+        Open the{" "}
+        <a
+          href="https://pay-sandbox.gocardless.com/billing_request_flows/demo"
+          target={"_blank"}
+          rel="noreferrer"
+        >
+          sandbox demo payment URL
+        </a>
+      </li>
+      <li>Wait for it to redirect you to a payment flow</li>
+      <li>
+        Copy the Billing Request Flow ID from the URL (it starts with{" "}
+        <code>BRF</code>)
+      </li>
+      <li>Come back to the Storybook</li>
+      <li>Click into the Controls tab</li>
+      <li>Paste the Billing Request Flow ID into the relevant control field</li>
+      <li>
+        Try the button in the canvas and see the modal showing a payment flow
+      </li>
+    </ol>
+  </>
+);
+
 // Render the GoCardlessDropinButton, which allows triggering of a new Dropin
 // modal.
 //
@@ -17,12 +53,15 @@ export const Base = ({
   environment: string;
 }) => {
   return (
-    <GoCardlessDropinButton
-      billingRequestFlowID={billingRequestFlowID}
-      environment={environment}
-      onSuccess={action("onSuccess")}
-      onExit={action("onExit")}
-    />
+    <>
+      <GoCardlessDropinButton
+        billingRequestFlowID={billingRequestFlowID}
+        environment={environment}
+        onSuccess={action("onSuccess")}
+        onExit={action("onExit")}
+      />
+      <Instructions />
+    </>
   );
 };
 
