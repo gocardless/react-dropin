@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React from "react";
 import { ComponentMeta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { GoCardlessDropinButton } from ".";
 
-const Instructions: FC = () => (
+const Instructions = () => (
   <>
     <p>
       If you do not yet have an integration with our{" "}
@@ -46,10 +46,15 @@ const Instructions: FC = () => (
 // In future, we may want to provide an additional button that can populate the
 // BRF ID on behalf of the user, using our demo link in sandbox.
 //
-export const Base: FC<{
+interface BaseProps {
   billingRequestFlowID: string;
   environment: string;
-}> = ({ billingRequestFlowID, environment }) => {
+}
+
+export const Base = ({
+  billingRequestFlowID,
+  environment,
+}: BaseProps): React.ReactElement => {
   return (
     <>
       <GoCardlessDropinButton
