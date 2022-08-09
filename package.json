@@ -33,11 +33,12 @@
   },
   "homepage": "https://github.com/gocardless/react-gocardless-dropin#readme",
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "dependencies": {
-    "gocardless-nodejs": "^2.1.0"
+    "gocardless-nodejs": "^2.1.0",
+    "react-script-hook": "^1.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
@@ -47,16 +48,15 @@
     "@rollup/plugin-commonjs": "^19.0.1",
     "@rollup/plugin-node-resolve": "^13.0.2",
     "@rollup/plugin-typescript": "^8.2.3",
-    "@storybook/addon-actions": "^6.3.5",
+    "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-console": "^1.2.3",
-    "@storybook/addon-controls": "^6.3.5",
-    "@storybook/addon-essentials": "^6.3.5",
-    "@storybook/addon-links": "^6.3.5",
-    "@storybook/addons": "^6.3.5",
-    "@storybook/react": "^6.3.5",
-    "@storybook/react-docgen-typescript-plugin": "^0.7.2-canary.91cf050.0",
-    "@types/react": "^17.0.14",
-    "@types/react-select": "^4.0.17",
+    "@storybook/addon-controls": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/addons": "^6.5.10",
+    "@storybook/react": "^6.5.10",
+    "@storybook/react-docgen-typescript-plugin": "^1.0.1",
+    "@types/react": "^18.0.15",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "babel-loader": "^8.2.2",
@@ -70,16 +70,14 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^4.10.1",
     "prettier": "^2.3.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-script-hook": "^1.4.1",
-    "react-select": "^4.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rollup": "^2.53.3",
     "rollup-plugin-import-css": "^3.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
-    "storybook": "^6.3.5",
+    "storybook": "^6.5.10",
     "typescript": "^4.3.5"
   }
 }

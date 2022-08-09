@@ -6,13 +6,15 @@ import "./GoCardlessDropinButton.css";
 // Opens a Billing Request Flow in a modal. Relies on GoCardlessDropin being
 // loaded into window, which will only happen if the initialise script has been
 // loaded via a script tag.
-export const GoCardlessDropinButton = (options: GoCardlessDropinOptions) => {
-  const { open } = useGoCardlessDropin({ ...options });
+export const GoCardlessDropinButton = (
+  props: GoCardlessDropinOptions
+): React.ReactElement => {
+  const { open } = useGoCardlessDropin({ ...props });
 
   return (
     <button type="button" onClick={() => open()}>
-      Start Dropin for <code>{options.billingRequestFlowID}</code> in{" "}
-      <code>{options.environment}</code>
+      Start Dropin for <code>{props.billingRequestFlowID}</code> in{" "}
+      <code>{props.environment}</code>
     </button>
   );
 };

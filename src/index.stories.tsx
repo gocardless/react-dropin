@@ -1,4 +1,5 @@
 import React from "react";
+import { ComponentMeta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { GoCardlessDropinButton } from ".";
@@ -45,13 +46,15 @@ const Instructions = () => (
 // In future, we may want to provide an additional button that can populate the
 // BRF ID on behalf of the user, using our demo link in sandbox.
 //
+interface BaseProps {
+  billingRequestFlowID: string;
+  environment: string;
+}
+
 export const Base = ({
   billingRequestFlowID,
   environment,
-}: {
-  billingRequestFlowID: string;
-  environment: string;
-}) => {
+}: BaseProps): React.ReactElement => {
   return (
     <>
       <GoCardlessDropinButton
@@ -65,11 +68,6 @@ export const Base = ({
   );
 };
 
-Base.args = {
-  billingRequestFlowID: "BRF123",
-  environment: "sandbox",
-};
-
 export default {
   title: "Dropin/GoCardlessDropinButton",
   component: Base,
@@ -80,4 +78,8 @@ export default {
       options: ["sandbox", "live"],
     },
   },
-};
+  args: {
+    billingRequestFlowID: "BRF123",
+    environment: "sandbox",
+  },
+} as ComponentMeta<typeof Base>;
