@@ -54,7 +54,7 @@ const DropinButton = (options: GoCardlessDropinOptions) => {
 // Example checkout flow, where we create a Billing Request Flow ID by talking
 // with our backend API.
 const App: FunctionComponent = () => {
-  const [flowID, setFlowID] = useState<string | null>(null);
+  const [flowID, setFlowID] = useState("");
 
   // Build your backend with an API endpoint that:
   //
@@ -80,7 +80,7 @@ const App: FunctionComponent = () => {
   }, []);
 
   // Only show the button once we have a Billing Request Flow ID
-  return flowID === null ? (
+  return flowID ? (
     <div className="loader"></div>
   ) : (
     <DropinButton billingRequestFlowID={flowID} environment={"live"} />
