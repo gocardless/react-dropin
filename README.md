@@ -31,7 +31,7 @@ to trigger the Dropin.
 > story](https://gocardless.github.io/react-dropin/?path=/story/dropin-gocardlessdropinbutton--base)
 
 ```typescript
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import {
   useGoCardlessDropin,
   GoCardlessDropinOptions,
@@ -39,7 +39,7 @@ import {
 
 // Display a button that opens the Dropin on click, starting a checkout
 // flow for the specified Billing Request Flow.
-const DropinButton: FunctionComponent<GoCardlessDropinOptions> = (options) => {
+const DropinButton: FC<GoCardlessDropinOptions> = (options) => {
   const { open } = useGoCardlessDropin({ ...options });
 
   return (
@@ -52,7 +52,7 @@ const DropinButton: FunctionComponent<GoCardlessDropinOptions> = (options) => {
 
 // Example checkout flow, where we create a Billing Request Flow ID by talking
 // with our backend API.
-const App: FunctionComponent = () => {
+const App: FC = () => {
   const [flowID, setFlowID] = useState("");
 
   // Build your backend with an API endpoint that:
