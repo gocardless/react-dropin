@@ -31,7 +31,7 @@ to trigger the Dropin.
 > story](https://gocardless.github.io/react-dropin/?path=/story/dropin-gocardlessdropinbutton--base)
 
 ```typescript
-import React, { useCallback, useState, useEffect } from "react";
+import React, { FunctionComponent, useCallback, useState, useEffect } from "react";
 import {
   useGoCardlessDropin,
   GoCardlessDropinOptions,
