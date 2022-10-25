@@ -39,7 +39,7 @@ import {
 
 // Display a button that opens the Dropin on click, starting a checkout
 // flow for the specified Billing Request Flow.
-const DropinButton = (options: GoCardlessDropinOptions) => {
+const DropinButton: FunctionComponent<GoCardlessDropinOptions> = (options) => {
   const { open } = useGoCardlessDropin({ ...options });
 
   return (
