@@ -35,8 +35,7 @@ import React, { FunctionComponent, useCallback, useState, useEffect } from "reac
 import {
   useGoCardlessDropin,
   GoCardlessDropinOptions,
-  GoCardlessDropinOnSuccess,
-}
+} from '@gocardless/react-dropin'
 
 // Display a button that opens the Dropin on click, starting a checkout
 // flow for the specified Billing Request Flow.
