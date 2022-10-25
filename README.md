@@ -31,7 +31,7 @@ to trigger the Dropin.
 > story](https://gocardless.github.io/react-dropin/?path=/story/dropin-gocardlessdropinbutton--base)
 
 ```typescript
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   useGoCardlessDropin,
   GoCardlessDropinOptions,
@@ -64,7 +64,7 @@ const App: FunctionComponent = () => {
   //
   // See an example of this at Taking an Instant Bank Payment:
   // https://developer.gocardless.com/getting-started/billing-requests/taking-an-instant-bank-payment/
-  React.useEffect(() => {
+  useEffect(() => {
     async function createFlow() {
       // Expecting a JSON body like:
       // {
@@ -80,7 +80,7 @@ const App: FunctionComponent = () => {
   }, []);
 
   // Only show the button once we have a Billing Request Flow ID
-  return token === null ? (
+  return flowID === null ? (
     <div className="loader"></div>
   ) : (
     <DropinButton billingRequestFlowID={flowID} environment={"live"} />
