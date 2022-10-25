@@ -40,7 +40,7 @@ type CommonOptions = ClientCallbacks & {
   /**
    * Environment name, one of live or sandbox.
    */
-  environment: string;
+  environment: "live" | "sandbox";
   /**
    * Domain override if using a custom environment (for internal use only).
    */
