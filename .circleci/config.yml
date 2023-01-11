@@ -90,7 +90,7 @@ jobs:
       # This is the deploy key configured to permit write access to react-dropin
       - add_ssh_keys:
           fingerprints:
-            - "d4:93:9f:d8:79:57:ab:2b:32:62:8d:2e:b9:4a:28:77"
+            - "ef:5e:0b:01:b2:ff:ac:2c:20:a2:d8:90:ab:54:9b:aa"
       - run:
           name: Remove checkout key
           command: ssh-add -d <(ssh-add -L | grep rsa)
