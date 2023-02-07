@@ -1,0 +1,83 @@
+name: build
+on: push
+
+jobs:
+  build_and_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+          cache: npm
+      - name: restore_cache
+        uses: actions/cache@v3
+        with:
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
+          path: node_modules
+      - name: Install Dependencies
+        run: npm install
+        env:
+          NODE_ENV: development
+          NODE_AUTH_TOKEN: ${{ secrets.ROBOT_PACKAGE_WRITER }}
+      - run: npm run lint
+
+  publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    needs:
+      - build_and_lint
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+          cache: npm
+      - name: restore_cache
+        uses: actions/cache@v3
+        with:
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
+          path: node_modules
+      - name: Install Dependencies
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ROBOT_PACKAGE_WRITER }}
+      - name: Publish package
+        run: npm publish --access=public
+
+  storybook_publish:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs:
+      - build_and_lint
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+          cache: npm
+      - name: restore_cache
+        uses: actions/cache@v3
+        with:
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
+          path: node_modules
+      - name: Install Dependencies
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ROBOT_PACKAGE_WRITER }}
+      - run: npm run build-storybook
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.ROBOT_SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS_GITHUB_KEY }}
+      - name: Install dependencies
+        run: sudo apt-get install -y rsync
+      - name: Publish Storybook
+        run: node ./publish-storybook.js
