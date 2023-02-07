@@ -1,153 +1,84 @@
-name: gocardless/react-dropin/build
-on:
-  push:
-    branches:
-    - master
-env:
-  NPM_TOKEN: xxxxMNIm
+name: build
+on: push
+
 jobs:
-  deps:
-    if: # GitHub does not currently support regular expressions inside if conditions
-#         github.ref == 'refs/tags//^v.*/'
+  build_and_lint:
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    container:
-      image: circleci/node:16-browsers
-    env:
-      TERM: xterm
-      BUILD_TARGET: "./dist"
     steps:
-    - uses: actions/checkout@v3.1.0
-    - name: restore_cache
-      uses: actions/cache@v3
-      with:
-        key: npm-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-        restore-keys: |-
-          npm-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-          npm-v1-{{ checksum ".nvmrc" }}
-        path: node_modules
-    - name: Install Dependencies
-      run: npm install
-      env:
-        NODE_ENV: development
-  lint:
-    if: # GitHub does not currently support regular expressions inside if conditions
-#         github.ref == 'refs/tags//^v.*/'
-    runs-on: ubuntu-latest
-    container:
-      image: circleci/node:16-browsers
-    needs:
-    - deps
-    env:
-      TERM: xterm
-      BUILD_TARGET: "./dist"
-    steps:
-    - uses: actions/checkout@v3.1.0
-    - name: restore_cache
-      uses: actions/cache@v3
-      with:
-        key: npm-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-        restore-keys: |-
-          npm-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-          npm-v1-{{ checksum ".nvmrc" }}
-    - run: npm run lint
-  build:
-    if: # GitHub does not currently support regular expressions inside if conditions
-#         github.ref == 'refs/tags//^v.*/'
-    runs-on: ubuntu-latest
-    container:
-      image: circleci/node:16-browsers
-    needs:
-    - deps
-    env:
-      TERM: xterm
-      BUILD_TARGET: "./dist"
-    steps:
-    - uses: actions/checkout@v3.1.0
-    - name: restore_cache
-      uses: actions/cache@v3
-      with:
-        key: npm-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-        restore-keys: |-
-          npm-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-          npm-v1-{{ checksum ".nvmrc" }}
-    - run: npm run build
-    - uses: actions/upload-artifact@v3.1.1
-      with:
-        path: "~/project/."
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+          cache: npm
+      - name: restore_cache
+        uses: actions/cache@v3
+        with:
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
+          path: node_modules
+      - name: Install Dependencies
+        run: npm install
+        env:
+          NODE_ENV: development
+          NODE_AUTH_TOKEN: ${{ secrets.ROBOT_PACKAGE_WRITER }}
+      - run: npm run lint
+
   publish:
-    if: # GitHub does not currently support regular expressions inside if conditions
-#         (github.ref == 'refs/tags//^v.*/') && (github.ref != 'refs/heads//.*/')
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    container:
-      image: circleci/node:16-browsers
     needs:
-    - lint
-    - build
-    env:
-      TERM: xterm
-      BUILD_TARGET: "./dist"
+      - build_and_lint
     steps:
-    - uses: actions/download-artifact@v3.0.1
-      with:
-        path: "~/project"
-    - name: Authenticate with registry
-      run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-    - name: Publish package
-      run: npm publish --access=public
-  storybook-build:
-    if: # GitHub does not currently support regular expressions inside if conditions
-#         github.ref == 'refs/heads//^master|main$/'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+          cache: npm
+      - name: restore_cache
+        uses: actions/cache@v3
+        with:
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
+          path: node_modules
+      - name: Install Dependencies
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ROBOT_PACKAGE_WRITER }}
+      - name: Publish package
+        run: npm publish --access=public
+
+  storybook_publish:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    container:
-      image: circleci/node:16-browsers
     needs:
-    - deps
-    env:
-      TERM: xterm
-      BUILD_TARGET: "./dist"
+      - build_and_lint
     steps:
-    - uses: actions/checkout@v3.1.0
-    - name: restore_cache
-      uses: actions/cache@v3
-      with:
-        key: npm-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-        restore-keys: |-
-          npm-v1-{{ checksum ".nvmrc" }}-{{ checksum "package-lock.json" }}
-          npm-v1-{{ checksum ".nvmrc" }}
-    - run: npm run build-storybook
-    - uses: actions/upload-artifact@v3.1.1
-      with:
-        path: "~/project/."
-  storybook-publish:
-    if: # GitHub does not currently support regular expressions inside if conditions
-#         github.ref == 'refs/heads//^master|main$/'
-    runs-on: ubuntu-latest
-    container:
-      image: circleci/node:16-browsers
-    needs:
-    - storybook-build
-    env:
-      TERM: xterm
-      BUILD_TARGET: "./dist"
-    steps:
-    - uses: actions/download-artifact@v3.0.1
-      with:
-        path: "~/project"
-    # Ensure parameter if_key_exists is set correctly
-    - name: Install SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: "${{ secrets.CIRCLE_CI_SSH_KEY }}"
-        name: circle_ci_id_rsa
-        known_hosts: "${{ secrets.CIRCLE_CI_KNOWN_HOSTS }}"
-        if_key_exists: fail
-    - name: Remove checkout key
-      run: ssh-add -d <(ssh-add -L | grep rsa)
-    - name: Avoid hosts unknown for github
-      run: |-
-        mkdir -p ~/.ssh/
-        echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-    - name: Install dependencies
-      run: sudo apt-get install -y rsync
-    - name: Publish Storybook
-      run: node ./publish-storybook.js
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+          cache: npm
+      - name: restore_cache
+        uses: actions/cache@v3
+        with:
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
+          path: node_modules
+      - name: Install Dependencies
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ROBOT_PACKAGE_WRITER }}
+      - run: npm run build-storybook
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.ROBOT_SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS_GITHUB_KEY }}
+      - name: Install dependencies
+        run: sudo apt-get install -y rsync
+      - name: Publish Storybook
+        run: node ./publish-storybook.js
