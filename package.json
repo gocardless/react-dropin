@@ -1,7 +1,8 @@
 {
   "name": "@gocardless/react-dropin",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "React bindings to the GoCardless Dropin checkout flow",
+  "repository": "git@github.com:gocardless/react-dropin.git",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.esm.js",
@@ -11,16 +12,15 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/gocardless"
+  },
   "scripts": {
     "build": "rm -rf dist && rollup -c",
     "lint": "eslint '{src,examples}/**/*.{ts,tsx,js,jsx}' --ignore-path .gitignore",
     "lint:fix": "eslint --fix '{src,examples}/**/*.{ts,tsx,js,jsx}' --ignore-path .gitignore",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o dist/storybook"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gocardless/react-gocardless-dropin.git"
   },
   "keywords": [
     "checkout",
