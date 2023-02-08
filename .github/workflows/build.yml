@@ -1,6 +1,10 @@
 name: build
 on: push
 
+permissions:
+  packages: write
+  contents: read
+
 jobs:
   build_and_lint:
     runs-on: ubuntu-latest
@@ -44,10 +48,12 @@ jobs:
           path: node_modules
       - name: Install Dependencies
         run: npm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.ROBOT_PACKAGE_WRITER }}
+      - name: Build
+        run: npm run build
       - name: Publish package
         run: npm publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   storybook_publish:
     if: github.ref == 'refs/heads/master'
