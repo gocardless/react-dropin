@@ -37,7 +37,7 @@
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "dependencies": {
-    "gocardless-nodejs": "^2.1.0",
+    "gocardless-nodejs": "^3.14.0",
     "react-script-hook": "^1.7.0"
   },
   "devDependencies": {

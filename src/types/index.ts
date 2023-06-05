@@ -1,4 +1,4 @@
-import { BillingRequest, BillingRequestFlow } from "gocardless-nodejs";
+import type { BillingRequest, BillingRequestFlow } from "gocardless-nodejs";
 
 // Re-export, for integrator convenience when loading these bindings.
 export type { BillingRequest, BillingRequestFlow };
