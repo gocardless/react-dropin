@@ -12,9 +12,6 @@
     "README.md",
     "LICENSE"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/gocardless"
-  },
   "scripts": {
     "build": "rm -rf dist && rollup -c",
     "lint": "eslint '{src,examples}/**/*.{ts,tsx,js,jsx}' --ignore-path .gitignore",
