@@ -31,16 +31,15 @@ to trigger the Dropin.
 > story](https://gocardless.github.io/react-dropin/?path=/story/dropin-gocardlessdropinbutton--base)
 
 ```typescript
-import React, { useCallback, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import {
   useGoCardlessDropin,
   GoCardlessDropinOptions,
-  GoCardlessDropinOnSuccess,
-}
+} from '@gocardless/react-dropin'
 
 // Display a button that opens the Dropin on click, starting a checkout
 // flow for the specified Billing Request Flow.
-const DropinButton = (options: GoCardlessDropinOptions) => {
+const DropinButton: FC<GoCardlessDropinOptions> = (options) => {
   const { open } = useGoCardlessDropin({ ...options });
 
   return (
@@ -53,8 +52,8 @@ const DropinButton = (options: GoCardlessDropinOptions) => {
 
 // Example checkout flow, where we create a Billing Request Flow ID by talking
 // with our backend API.
-const App: FunctionComponent = () => {
-  const [flowID, setFlowID] = useState<string | null>(null);
+const App: FC = () => {
+  const [flowID, setFlowID] = useState("");
 
   // Build your backend with an API endpoint that:
   //
@@ -64,7 +63,7 @@ const App: FunctionComponent = () => {
   //
   // See an example of this at Taking an Instant Bank Payment:
   // https://developer.gocardless.com/getting-started/billing-requests/taking-an-instant-bank-payment/
-  React.useEffect(() => {
+  useEffect(() => {
     async function createFlow() {
       // Expecting a JSON body like:
       // {
@@ -80,7 +79,7 @@ const App: FunctionComponent = () => {
   }, []);
 
   // Only show the button once we have a Billing Request Flow ID
-  return token === null ? (
+  return flowID ? (
     <div className="loader"></div>
   ) : (
     <DropinButton billingRequestFlowID={flowID} environment={"live"} />
