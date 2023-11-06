@@ -36,7 +36,7 @@ import {
   useGoCardlessDropin,
   GoCardlessDropinOptions,
   GoCardlessDropinOnSuccess,
-}
+} from "@gocardless/react-dropin";
 
 // Display a button that opens the Dropin on click, starting a checkout
 // flow for the specified Billing Request Flow.
@@ -80,7 +80,7 @@ const App: FunctionComponent = () => {
   }, []);
 
   // Only show the button once we have a Billing Request Flow ID
-  return token === null ? (
+  return flowID === null ? (
     <div className="loader"></div>
   ) : (
     <DropinButton billingRequestFlowID={flowID} environment={"live"} />
@@ -99,7 +99,7 @@ Stories are deployed to the `gh-pages` branch of this repo, and hosted at
 
 ## Publishing
 
-CircleCI is configured to publish changes us, via a build pipeline.
+CircleCI is configured to publish changes for us, via a build pipeline.
 
 To trigger a new package version:
 
