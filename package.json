@@ -1,6 +1,6 @@
 {
   "name": "@gocardless/react-dropin",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "React bindings to the GoCardless Dropin checkout flow",
   "repository": "git@github.com:gocardless/react-dropin.git",
   "main": "dist/index.js",
@@ -34,7 +34,7 @@
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "dependencies": {
-    "gocardless-nodejs": "^3.14.0",
+    "gocardless-nodejs": "^6.0.0",
     "react-script-hook": "^1.7.0"
   },
   "devDependencies": {
@@ -73,7 +73,7 @@
     "rollup-plugin-import-css": "^3.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-typescript2": "^0.31.0",
     "storybook": "^6.5.10",
     "typescript": "^4.3.5"
   }
