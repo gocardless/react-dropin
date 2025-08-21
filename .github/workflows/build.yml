@@ -107,6 +107,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build-storybook
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
