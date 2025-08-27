@@ -22,7 +22,7 @@ jobs:
       - name: restore_cache
         uses: actions/cache@v3
         with:
-          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package.json") }}
           restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
           path: node_modules
       - name: Install Dependencies
@@ -47,7 +47,7 @@ jobs:
       - name: restore_cache
         uses: actions/cache@v3
         with:
-          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package.json") }}
           restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
           path: node_modules
       - name: Install Dependencies
@@ -74,7 +74,7 @@ jobs:
       - name: restore_cache
         uses: actions/cache@v3
         with:
-          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package.json") }}
           restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
           path: node_modules
       - name: Install Dependencies
@@ -101,7 +101,7 @@ jobs:
       - name: restore_cache
         uses: actions/cache@v3
         with:
-          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package-lock.json") }}
+          key: npm-v1-{{ hashFiles(".nvmrc") }}-{{ hashFiles("package.json") }}
           restore-keys: npm-v1-{{ hashFiles(".nvmrc") }}
           path: node_modules
       - name: Install Dependencies
