@@ -51,7 +51,7 @@
     "@storybook/addon-essentials": "^6.5.10",
     "@storybook/addon-links": "^6.5.10",
     "@storybook/addons": "^6.5.10",
-    "@storybook/react": "^6.5.10",
+    "@storybook/react": "^9.1.4",
     "@storybook/react-docgen-typescript-plugin": "^1.0.1",
     "@types/react": "^18.0.15",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
