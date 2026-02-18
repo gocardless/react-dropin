@@ -12,7 +12,7 @@ module.exports = {
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:testing-library/react",
+    "plugin:testing-library/react"
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {

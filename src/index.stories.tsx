@@ -1,7 +1,5 @@
 import React from "react";
-import { ComponentMeta } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-
+import type { Meta } from "@storybook/react";
 import { GoCardlessDropinButton } from ".";
 
 const Instructions = () => (
@@ -60,15 +58,15 @@ export const Base = ({
       <GoCardlessDropinButton
         billingRequestFlowID={billingRequestFlowID}
         environment={environment}
-        onSuccess={action("onSuccess")}
-        onExit={action("onExit")}
+        onSuccess={(e) => console.log("onSuccess", e)}
+        onExit={(e) => console.log("onExit", e)}
       />
       <Instructions />
     </>
   );
 };
 
-export default {
+const meta: Meta<typeof Base> = {
   title: "Dropin/GoCardlessDropinButton",
   component: Base,
   argTypes: {
@@ -82,4 +80,6 @@ export default {
     billingRequestFlowID: "BRF123",
     environment: "sandbox",
   },
-} as ComponentMeta<typeof Base>;
+};
+
+export default meta;
