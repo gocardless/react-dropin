@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Only create PRs for security updates
+    open-pull-requests-limit: 0
+    groups:
+      storybook:
+        patterns:
+          - "@storybook/*"
+          - "storybook"
+      rollup:
+        patterns:
+          - "rollup*"
+          - "@rollup/*"
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@typescript-eslint/*"
